@@ -5,6 +5,8 @@
 #include <cmath>
 #include <glut.h>
 
+#define timerTerm 10
+
 int Width = 1000, Height = 1000;
 double AngleX = -10;
 double AngleY = 0;
@@ -39,7 +41,10 @@ void Keyboard(unsigned char key, int x, int y);
 void RenderFloor();
 void Mouse(int button, int state, int x, int y);
 void MouseMotion(int x, int y);
-void Timer(int id); //시계
+
+//재귀적으로 일정시간마다 호출된다.
+void Timer(int id); 
+
 void ThrowBall();
 void BackBoard();
 void InitOpenGL();
@@ -73,7 +78,7 @@ int main(int argc, char **argv)
 	glutKeyboardFunc(Keyboard);
 	glutMouseFunc(Mouse);
 	glutPassiveMotionFunc(MouseMotion);
-	glutTimerFunc(1, Timer, 1); //타이머 1시작
+	glutTimerFunc(timerTerm, Timer, 1); //타이머 1시작
 
 	glutMainLoop();
 	return 0;
@@ -929,7 +934,7 @@ void Timer(int id)
 			}
 
 			glutPostRedisplay();
-			glutTimerFunc(1, Timer, 1);
+			glutTimerFunc(timerTerm, Timer, 1);
 		}
 }
 
